@@ -19,22 +19,22 @@ jobs:
       - name: Checkout Work Branch
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ env.AWS_ROLE_ARN }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.13'
-        run: npm ci
-
-      - name: Serverless Deploy
-        uses: serverless/github-action@v3.2
-        with:
-          args: deploy
-        env:
-          SLACK_SIGNING_SECRET: ${{ env.SLACK_SIGNING_SECRET }}
-          SLACK_BOT_TOKEN: ${{ env.SLACK_BOT_TOKEN }}
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          aws-region: ${{ env.AWS_REGION }}
+#          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '20.13'
+#        run: npm ci
+#
+#      - name: Serverless Deploy
+#        uses: serverless/github-action@v3.2
+#        with:
+#          args: deploy
+#        env:
+#          SLACK_SIGNING_SECRET: ${{ env.SLACK_SIGNING_SECRET }}
+#          SLACK_BOT_TOKEN: ${{ env.SLACK_BOT_TOKEN }}
