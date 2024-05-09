@@ -6,6 +6,10 @@ on:
       - main
       - auto-deploy-setting
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   AWS_REGION: ap-northeast-1
   AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
