@@ -33,12 +33,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.13'
+
+      - name: Install Packages
         run: npm ci
-#
-#      - name: Serverless Deploy
-#        uses: serverless/github-action@v3.2
-#        with:
-#          args: deploy
-#        env:
-#          SLACK_SIGNING_SECRET: ${{ env.SLACK_SIGNING_SECRET }}
-#          SLACK_BOT_TOKEN: ${{ env.SLACK_BOT_TOKEN }}
+
+      - name: Serverless Deploy
+        uses: serverless/github-action@v3.2
+        with:
+          args: deploy
+        env:
+          SLACK_SIGNING_SECRET: ${{ env.SLACK_SIGNING_SECRET }}
+          SLACK_BOT_TOKEN: ${{ env.SLACK_BOT_TOKEN }}
