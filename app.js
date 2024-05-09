@@ -1,13 +1,14 @@
 require('dotenv').config();
 
-const { App } = require('@slack/bolt');
+const { App, AwsLambdaReceiver } = require('@slack/bolt');
+
+const awsLambdaReceiver = new AwsLambdaReceiver({
+    signingSecret: process.env.SLACK_SIGNING_SECRET,
+});
 
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-    socketMode: true,
-    appToken: process.env.SLACK_APP_TOKEN,
-    port: process.env.PORT || 3000
+    receiver: awsLambdaReceiver
 });
 
 app.message('hello', async ({message, say}) => {
@@ -39,8 +40,7 @@ app.action('button_click', async ({ body, ack, say }) => {
     await say(`<@${body.user.id}> clicked the button`);
 });
 
-(async () => {
-    await app.start();
-
-    console.log('⚡️ Bolt app is running!');
-})();
+module.exports.handler = async (event, context, callback) => {
+    const handler = await awsLambdaReceiver.start();
+    return handler(event, context, callback);
+}
