@@ -1,4 +1,4 @@
-service: sample-slack-app
+service: my-slack
 
 frameworkVersion: '3'
 
@@ -20,7 +20,7 @@ provider:
     disableDefaultEndpoint: true
 
 functions:
-  SlackBolt:
+  bolt:
     handler: app.handler
     events:
       - httpApi:
