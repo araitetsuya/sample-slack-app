@@ -30,6 +30,7 @@ functions:
           path: /slack/events
     destinations:
       onSuccess: bolt
+      onFailure: bolt
 
   bolt:
     handler: app.handler
