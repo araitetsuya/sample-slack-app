@@ -21,3 +21,9 @@ module.exports.handler = async (event, context, callback) => {
     const handler = await awsLambdaReceiver.start()
     return handler(event, context, callback)
 }
+
+module.exports.accept = async (event, context, callback) => {
+    console.log(event)
+
+    callback(null, 200)
+}
