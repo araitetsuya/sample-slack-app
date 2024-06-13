@@ -18,6 +18,8 @@ app.message('hello', async ({message, say}) => {
 });
 
 module.exports.handler = async (event, context, callback) => {
+    console.log(event)
+    
     const handler = await awsLambdaReceiver.start()
     return handler(event, context, callback)
 }
@@ -25,5 +27,5 @@ module.exports.handler = async (event, context, callback) => {
 module.exports.accept = async (event, context, callback) => {
     console.log(event)
 
-    callback(null, 200)
+    return event
 }
