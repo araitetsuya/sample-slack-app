@@ -40,7 +40,11 @@ functions:
           path: /slack/events
     environment:
       BOLT_LAMBDA_FUNCTION_NAME: {
-        Fn::Sub: 'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:my-slack-dev-bolt'
+        'Fn::Join':
+          [
+            '',
+            [ 'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}', { 'Ref': 'BoltLambdaFunction' } ],
+          ],
       }
 
   bolt:
