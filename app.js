@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { App, AwsLambdaReceiver } = require('@slack/bolt')
+const { LambdaClient, InvokeCommand } = require('@aws-sdk/client-lambda')
 
 const awsLambdaReceiver = new AwsLambdaReceiver({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -19,13 +20,23 @@ app.message('hello', async ({message, say}) => {
 
 module.exports.handler = async (event, context, callback) => {
     console.log(event)
-    
+
     const handler = await awsLambdaReceiver.start()
     return handler(event, context, callback)
 }
 
-module.exports.accept = async (event, context, callback) => {
-    console.log(event)
+module.exports.accept = async (event) => {
+    const lambdaClient = new LambdaClient()
+    const command = new InvokeCommand({
+        FunctionName: 'my-slack-dev-bolt',
+        InvocationType: 'Event',
+        Payload: JSON.stringify(event)
+    })
 
-    return event
+    const response = await lambdaClient.send(command)
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(response)
+    }
 }
