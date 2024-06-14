@@ -29,17 +29,17 @@ functions:
           method: post
           path: /slack/events
     iamRoleStatementsName: ${self:service}-${self:provider.stage}-invoke-bolt-lambda
-    iamRoleStatements:
-      - Effect: Allow
-        Action:
-          - lambda:InvokeFunction
-        Resource: {
-          Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
-        }
-    environment:
-      BOLT_LAMBDA_FUNCTION_ARN: {
-        Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
-      }
+#    iamRoleStatements:
+#      - Effect: Allow
+#        Action:
+#          - lambda:InvokeFunction
+#        Resource: {
+#          Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
+#        }
+#    environment:
+#      BOLT_LAMBDA_FUNCTION_ARN: {
+#        Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
+#      }
 
   run-bolt:
     handler: app.handler
