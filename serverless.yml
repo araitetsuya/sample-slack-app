@@ -17,16 +17,6 @@ provider:
     SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
     SLACK_BOT_TOKEN: ${env:SLACK_BOT_TOKEN}
 
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - lambda:InvokeFunction
-          Resource: {
-            Fn::Sub: 'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:my-slack-dev-bolt'
-          }
-
   httpApi:
     shouldStartNameWithService: true
     disableDefaultEndpoint: true
@@ -38,6 +28,13 @@ functions:
       - httpApi:
           method: post
           path: /slack/events
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - lambda:InvokeFunction
+        Resource: {
+          Fn::GetAtt: ['BoltLambdaFunction','Arn']
+        }
     environment:
       BOLT_LAMBDA_FUNCTION_NAME: {
         Fn::GetAtt: ['BoltLambdaFunction','Arn']
@@ -47,4 +44,5 @@ functions:
     handler: app.handler
 
 plugins:
+  - serverless-iam-roles-per-function
   - serverless-offline
