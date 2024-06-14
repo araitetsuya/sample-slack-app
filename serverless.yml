@@ -24,10 +24,7 @@ provider:
           Action:
             - lambda:InvokeFunction
           Resource: {
-            'Fn::Join': [
-              '',
-              ['arn:aws:s3:::', { 'Ref': 'BoltLambdaFunction'}]
-            ]
+            Fn::Sub: 'arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:my-slack-dev-bolt'
           }
 
   httpApi:
