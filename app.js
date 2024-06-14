@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const { App, AwsLambdaReceiver } = require('@slack/bolt')
 const { LambdaClient, InvokeCommand } = require('@aws-sdk/client-lambda')
 
@@ -19,8 +17,6 @@ app.message('hello', async ({message, say}) => {
 });
 
 module.exports.handler = async (event, context, callback) => {
-    console.log(event)
-
     const handler = await awsLambdaReceiver.start()
     return handler(event, context, callback)
 }
@@ -28,7 +24,7 @@ module.exports.handler = async (event, context, callback) => {
 module.exports.accept = async (event) => {
     const lambdaClient = new LambdaClient()
     const command = new InvokeCommand({
-        FunctionName: 'my-slack-dev-bolt',
+        FunctionName: process.env.BOLT_LAMBDA_FUNCTION_ARN,
         InvocationType: 'Event',
         Payload: JSON.stringify(event)
     })

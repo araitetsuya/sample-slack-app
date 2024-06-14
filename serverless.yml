@@ -36,7 +36,7 @@ functions:
           Fn::GetAtt: ['BoltLambdaFunction','Arn']
         }
     environment:
-      BOLT_LAMBDA_FUNCTION_NAME: {
+      BOLT_LAMBDA_FUNCTION_ARN: {
         Fn::GetAtt: ['BoltLambdaFunction','Arn']
       }
 

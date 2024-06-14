@@ -10,13 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.596.0",
-    "@slack/bolt": "^3.18.0",
-    "dotenv": "^16.4.5"
+    "@slack/bolt": "^3.18.0"
   },
   "devDependencies": {
-    "install": "^0.13.0",
-    "npm": "^10.8.1",
-    "serverless-iam-roles-per-function": "^3.2.0",
-    "serverless-offline": "^13.5.0"
+    "serverless-iam-roles-per-function": "^3.2.0"
   }
 }
