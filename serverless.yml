@@ -28,6 +28,8 @@ functions:
       - httpApi:
           method: post
           path: /slack/events
+    destinations: 
+        onSuccess: bolt
 
   bolt:
     handler: app.handler
