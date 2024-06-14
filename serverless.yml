@@ -17,6 +17,19 @@ provider:
     SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
     SLACK_BOT_TOKEN: ${env:SLACK_BOT_TOKEN}
 
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - lambda:InvokeFunction
+          Resource: {
+            'Fn::Join': [
+              '',
+              ['arn:aws:s3:::', { 'Ref': 'BoltLambdaFunction'}]
+            ]
+          }
+
   httpApi:
     shouldStartNameWithService: true
     disableDefaultEndpoint: true
@@ -28,8 +41,6 @@ functions:
       - httpApi:
           method: post
           path: /slack/events
-    destinations: 
-        onSuccess: bolt
 
   bolt:
     handler: app.handler
