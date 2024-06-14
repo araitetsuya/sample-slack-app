@@ -22,12 +22,13 @@ provider:
     disableDefaultEndpoint: true
 
 functions:
-  accept:
+  invoke-bolt:
     handler: app.accept
     events:
       - httpApi:
           method: post
           path: /slack/events
+    iamRoleStatementsName: ${self:service}-${opt:stage}-${self:function.name}-lambda
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -42,6 +43,7 @@ functions:
 
   bolt:
     handler: app.handler
+    iamRoleStatementsName: ${self:service}-${opt:stage}-${self:function.name}-lambda
 
 plugins:
   - serverless-iam-roles-per-function
