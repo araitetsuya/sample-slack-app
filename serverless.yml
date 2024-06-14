@@ -6,7 +6,7 @@ useDotenv: true
 
 provider:
   name: aws
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   region: ap-northeast-1
   tags:
     service: my-slack
@@ -28,7 +28,7 @@ functions:
       - httpApi:
           method: post
           path: /slack/events
-    iamRoleStatementsName: ${self:service}-${opt:stage}-${self:function.name}-lambda
+    iamRoleStatementsName: ${self:service}-${self:stage}-${self:function.name}-lambda
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -41,9 +41,9 @@ functions:
         Fn::GetAtt: ['BoltLambdaFunction','Arn']
       }
 
-  bolt:
+  run-bolt:
     handler: app.handler
-    iamRoleStatementsName: ${self:service}-${opt:stage}-${self:function.name}-lambda
+    iamRoleStatementsName: ${self:service}-${self:stage}-${self:function.name}-lambda
 
 plugins:
   - serverless-iam-roles-per-function
