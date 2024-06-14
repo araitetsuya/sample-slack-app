@@ -28,7 +28,7 @@ functions:
       - httpApi:
           method: post
           path: /slack/events
-    iamRoleStatementsName: ${self:service}-${self:provider.stage}-${self:function.name}-lambda
+    iamRoleStatementsName: ${self:service}-${self:provider.stage}-invoke-bolt-lambda
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -43,7 +43,7 @@ functions:
 
   run-bolt:
     handler: app.handler
-    iamRoleStatementsName: ${self:service}-${self:stage}-${self:function.name}-lambda
+    iamRoleStatementsName: ${self:service}-${self:stage}-run-bolt-lambda
 
 plugins:
   - serverless-iam-roles-per-function
