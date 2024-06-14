@@ -34,11 +34,11 @@ functions:
         Action:
           - lambda:InvokeFunction
         Resource: {
-          Fn::GetAtt: ['BoltLambdaFunction','Arn']
+          Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
         }
     environment:
       BOLT_LAMBDA_FUNCTION_ARN: {
-        Fn::GetAtt: ['BoltLambdaFunction','Arn']
+        Fn::GetAtt: ['RunBoltLambdaFunction','Arn']
       }
 
   run-bolt:
