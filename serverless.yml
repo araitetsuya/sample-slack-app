@@ -46,6 +46,7 @@ functions:
     name: ${self:service}-${sls:stage}-run-bolt
     handler: app.handler
     iamRoleStatementsName: ${self:service}-${sls:stage}-run-bolt-lambda
+    iamRoleStatements:
 
 plugins:
   - serverless-iam-roles-per-function
